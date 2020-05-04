@@ -4,7 +4,7 @@ from os import path
 
 if not path.exists('/usr/sbin/tor'):
     try:
-        youtube_views.installTor()
+        pass
     except KeyboardInterrupt:
         exit('Exiting ...')
     if all([not path.exists('/usr/sbin/tor')]):
