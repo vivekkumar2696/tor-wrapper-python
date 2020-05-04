@@ -13,3 +13,9 @@ if not path.exists('/usr/sbin/tor'):
 tor = Tor()
 
 tor.restart_tor()
+br = tor.create_browser()
+url='https://api.covid19india.org/states_daily.json'
+
+response = br.open(url)
+print(response.read())
+
