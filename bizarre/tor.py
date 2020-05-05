@@ -1,3 +1,5 @@
+from .utils import Utils
+
 from subprocess import getoutput
 from time import sleep
 
@@ -50,7 +52,7 @@ class Tor():
         br.set_handle_robots(False)
         br.set_handle_refresh(False)
         br.set_cookiejar(http.cookiejar.LWPCookieJar())
-        br.addheaders=[('User-agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.24 (KHTML, like Gecko) RockMelt/0.9.58.494 Chrome/11.0.696.71 Safari/534.24')]
+        br.addheaders=[('User-agent', Utils.user_agents())]
         br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(),max_time=1)
         return br
 
