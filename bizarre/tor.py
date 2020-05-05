@@ -7,23 +7,42 @@ import socks
 import socket
 import random
 
+"""
+    Class use to handle all the tor operations including restarting, stoping, creating browsers, updating identity
+
+    Could be used as a base class for extending functionalities
+"""
 class Tor():
 
     def __init__(self):
         self.alive = True
 
     def install_tor(self):
+        # TODO: Add install functionality for different operating systems
         pass
 
+    """
+        Restart tor service
+        Parameters:
+        num: Used as a threshold for retrying in case of errors
+    """
     def restart_tor(self, num = 3):
         getoutput("service tor restart")
         sleep(1.5)
         self.update_identity(num)
 
+    """
+        Stop tor service
+    """
     def stop_tor(self):
         getoutput("service tor stop")
         print('Tor stopped')
 
+    """
+        Create a browser using the `mechanize` library
+
+        Return type: Mechanize browser object
+    """
     def create_browser(self):
         br = mechanize.Browser()
         br.set_handle_equiv(True)
@@ -35,6 +54,9 @@ class Tor():
         br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(),max_time=1)
         return br
 
+    """
+        Helper function to get current IP address
+    """
     def get_ip(self):
         try:
             ip = None
@@ -48,6 +70,9 @@ class Tor():
                 self.exit()
             return ip
 
+    """
+        Update the tor identity
+    """
     def update_identity(self, recur=3):
         socks.socket.setdefaulttimeout(5)
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9050, True)
