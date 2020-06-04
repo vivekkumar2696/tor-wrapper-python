@@ -1,5 +1,8 @@
 import random
 
+from subprocess import call
+import yaml
+
 class Utils():
 
     """
@@ -19,3 +22,14 @@ class Utils():
                  'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0']
 
         return random.choice(user_agents)
+
+    @classmethod
+    def get_credentials_yaml(cls):
+        with open('credentials.yaml') as file:
+            credentials = yaml.load(file, Loader=yaml.FullLoader)
+
+        return credentials
+
+    @classmethod
+    def call_shell_command(cls, cmd):
+        call('echo {} | sudo -S {}'.format(cls.get_credentials_yaml()['password'], cmd), shell=True)

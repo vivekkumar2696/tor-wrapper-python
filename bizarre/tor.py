@@ -29,7 +29,7 @@ class Tor():
         num: Used as a threshold for retrying in case of errors
     """
     def restart_tor(self, num = 3):
-        getoutput("service tor restart")
+        Utils.call_shell_command("service tor restart")
         sleep(1.5)
         self.update_identity(num)
 
@@ -37,7 +37,7 @@ class Tor():
         Stop tor service
     """
     def stop_tor(self):
-        getoutput("service tor stop")
+        Utils.call_shell_command("service tor stop")
         print('Tor stopped')
 
     """
@@ -66,7 +66,7 @@ class Tor():
             ip = br.open('https://api.ipify.org/?format=text', timeout=1.5).read()
             br.close()
         except Exception as e:
-            pass
+            print(e)
         finally:
             if not self.alive:
                 self.exit()
@@ -94,7 +94,7 @@ class Tor():
                     else:
                         if reset_counts:
                             reset_counts -= 1
-                            getoutput('service network-manager restart')
+                            Utils.call_shell_command('service network-manager restart')
                         sleep(1)
                 if not ip:
                     self.restart_tor(recur-1)
