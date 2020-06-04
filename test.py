@@ -11,8 +11,8 @@ if not path.exists('/usr/sbin/tor'):
         exit('Please Install Tor')
 
 tor = Tor()
-
-tor.restart_tor()
+pwd = "password"
+tor.restart_tor(pwd)
 br = tor.create_browser()
 url='https://api.covid19india.org/states_daily.json'
 

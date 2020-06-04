@@ -26,18 +26,19 @@ class Tor():
     """
         Restart tor service
         Parameters:
+        pwd: Pwd of linux shell
         num: Used as a threshold for retrying in case of errors
     """
-    def restart_tor(self, num = 3):
-        Utils.call_shell_command("service tor restart")
+    def restart_tor(self, pwd = None, num = 3):
+        Utils.call_shell_command("service tor restart", pwd)
         sleep(1.5)
-        self.update_identity(num)
+        self.update_identity(num, pwd)
 
     """
         Stop tor service
     """
-    def stop_tor(self):
-        Utils.call_shell_command("service tor stop")
+    def stop_tor(self, pwd = None):
+        Utils.call_shell_command("service tor stop", pwd)
         print('Tor stopped')
 
     """
@@ -75,7 +76,7 @@ class Tor():
     """
         Update the tor identity
     """
-    def update_identity(self, recur=3):
+    def update_identity(self, pwd = None, recur=3):
         socks.socket.setdefaulttimeout(5)
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 9050, True)
         socket.socket = socks.socksocket
@@ -94,10 +95,10 @@ class Tor():
                     else:
                         if reset_counts:
                             reset_counts -= 1
-                            Utils.call_shell_command('service network-manager restart')
+                            Utils.call_shell_command('service network-manager restart', pwd)
                         sleep(1)
                 if not ip:
-                    self.restart_tor(recur-1)
+                    self.restart_tor(pwd, recur-1)
             self.ip = ip
             print('Ip is', self.ip)
         except Exception as e:
