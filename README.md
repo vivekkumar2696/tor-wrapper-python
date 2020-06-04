@@ -37,5 +37,5 @@ from bizarre.tor import Tor
 sudo_pwd = None # Optional. If not specified, there would be a prompt later to ask for password
 
 tor = Tor()
-tor.update_identity(sudo_pwd)
+tor.restart_tor(sudo_pwd)
 ```
