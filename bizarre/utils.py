@@ -31,5 +31,9 @@ class Utils():
         return credentials
 
     @classmethod
-    def call_shell_command(cls, cmd):
-        call('echo {} | sudo -S {}'.format(cls.get_credentials_yaml()['password'], cmd), shell=True)
+    def call_shell_command(cls, cmd, pwd = None):
+        pwd = cls.get_credentials_yaml()['password'] if pwd is None else pwd
+        if pwd:
+            call('echo {} | sudo -S {}'.format(pwd, cmd), shell=True)
+        else:
+            call(cmd, shell = True)
