@@ -18,8 +18,10 @@ A python wrapper for tor to browse sites anonymously.
 2. Sample python code
 ```python
 from bizarre.tor import Tor
+sudo_pwd = None # Optional. If not specified, there would be a prompt later to ask for password
+
 tor = Tor()
-tor.restart_tor()
+tor.restart_tor(sudo_pwd)
 br = tor.create_browser()
 url='https://api.covid19india.org/states_daily.json'
 
@@ -32,6 +34,8 @@ create_browser() returns a mechanize._mechanize.Browser object
 
 ```python
 from bizarre.tor import Tor
+sudo_pwd = None # Optional. If not specified, there would be a prompt later to ask for password
+
 tor = Tor()
-tor.update_identity()
+tor.update_identity(sudo_pwd)
 ```
