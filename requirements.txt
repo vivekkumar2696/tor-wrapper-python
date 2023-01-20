@@ -1,5 +1,5 @@
 html5lib==1.0.1
-mechanize==0.4.5
+mechanize==0.4.6
 PySocks==1.7.1
 six==1.14.0
 webencodings==0.5.1
